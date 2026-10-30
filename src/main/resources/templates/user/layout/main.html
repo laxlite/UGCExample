@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+
+    <style>
+        /* Только layout-стили, без цветового оформления */
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+        }
+
+        /* ---------- HEADER ---------- */
+        .app-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 8px 16px;
+            border-bottom: 1px solid #ccc;
+            background: #fff;
+        }
+
+        .app-header .logo {
+            flex: 0 0 auto;
+        }
+
+        .app-header .search-form {
+            flex: 1 1 auto;
+            display: flex;
+            gap: 8px;
+            max-width: 480px;
+        }
+
+        .app-header .search-form input {
+            flex: 1 1 auto;
+        }
+
+        .app-header .login-status-slot {
+            flex: 0 0 auto;
+            margin-left: auto;
+        }
+
+        /* ---------- MAIN ---------- */
+        .app-main {
+            padding: 16px;
+            margin-top: 60px;   /* отступ под фиксированный header */
+        }
+
+        /* ---------- FOOTER ---------- */
+        .app-footer {
+            display: flex;
+            padding: 16px;
+            border-top: 1px solid #ccc;
+        }
+
+        .app-footer .footer-column {
+            flex: 1 1 0;
+            padding: 0 16px;
+        }
+
+        .app-footer .footer-column + .footer-column {
+            border-left: 1px solid #ccc;
+        }
+
+        .app-footer ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .app-footer li + li {
+            margin-top: 6px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ==================== HEADER ==================== -->
+<header class="app-header">
+    <div class="logo">
+        <a th:href="@{/}">Логотип</a>
+    </div>
+
+    <form class="search-form" th:action="@{/search}" method="get">
+        <input type="text" name="q" placeholder="Поиск..."/>
+        <button type="submit">Найти</button>
+    </form>
+
+    <div class="login-status-slot">
+        <div th:replace="~{user/fragment/header/login_status :: loginStatus}"></div>
+    </div>
+</header>
+
+<!-- ==================== MAIN ==================== -->
+<main class="app-main">
+    <!--
+        Единый слот под всё содержимое между header и footer.
+        Сюда будет вставляться нужный компонент (лента, страница статьи и т.п.).
+        Имя фрагмента 'mainContent' — замените на своё, когда определитесь,
+        что именно будет жить в этом слоте по умолчанию.
+    -->
+    <div th:replace="~{user/layout/panel/main_content :: mainContent}"></div>
+</main>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="app-footer">
+
+    <div class="footer-column">
+        <h3>Аккаунт</h3>
+        <ul>
+            <li><a th:href="@{/register}">Регистрация</a></li>
+            <li><a th:href="@{/login}">Вход</a></li>
+        </ul>
+    </div>
+
+    <div class="footer-column">
+        <h3>Информация</h3>
+        <ul>
+            <li><a th:href="@{/for_authors}">Для авторов</a></li>
+            <li><a th:href="@{/rules}">Правила сайта</a></li>
+            <li><a th:href="@{/privacy}">Конфиденциальность</a></li>
+        </ul>
+    </div>
+
+</footer>
+
+</body>
+</html>

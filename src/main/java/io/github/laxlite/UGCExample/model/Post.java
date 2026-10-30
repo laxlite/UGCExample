@@ -27,7 +27,7 @@ public class Post {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(updatable = false)
-    private User author;
+    private User user;
 
     @Setter
     @Enumerated(EnumType.STRING)

@@ -22,7 +22,7 @@ public class Comment {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
-    private User author;
+    private User user;
 
     @Column(nullable = false)
     private String content;

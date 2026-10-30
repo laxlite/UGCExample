@@ -6,13 +6,6 @@ create table if not exists tag (
 	name varchar(30) not null unique
 );
 
-create table if not exists auth (
-	id bigint generated always as identity primary key,
-	email varchar not null unique,
-	hash varchar not null,
-	status auth_status not null
-);
-
 create table if not EXISTS "user" (
 	id BIGINT GENERATED always as identity PRIMARY key,
 	nickname varchar(50) not null UNIQUE,
@@ -33,7 +26,7 @@ create table if not exists "admin" (
 
 create table if not exists post (
 	id BIGINT GENERATED always as identity PRIMARY key,
-	author bigint references "user"(id) on delete set null,
+    user_id bigint references "user"(id) on delete set null,
 	status post_status not null default 'DRAFT',
 	header varchar(100) not null,
 	content varchar default '',
@@ -48,7 +41,7 @@ create table if not exists post_tag (
 
 create table if not exists comment (
 	id BIGINT GENERATED always as identity PRIMARY key,
-	author bigint references "user"(id) on delete set null,
+	user_id bigint references "user"(id) on delete set null,
 	content varchar not null,
 	rating integer not null default 0
 );

@@ -1,0 +1,6 @@
+# create .env file with data
+POSTGRES_HOST=host
+POSTGRES_PORT=port
+POSTGRES_USER=user
+POSTGRES_PASSWORD=password
+POSTGRES_DB=database

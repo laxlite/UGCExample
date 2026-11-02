@@ -8,24 +8,6 @@
         <aside class="feed-sidebar" th:replace="~{this::rightSidebar}"></aside>
     </div>
 
-<!-- Заглушки   -->
-    <aside th:fragment="leftSidebar" class="feed-sidebar">
-        <div class="placeholder">
-            <p>Здесь будут списки</p>
-        </div>
-    </aside>
-    <main th:fragment="postsList" class="feed-content">
-        <div class="placeholder">
-            <p>Здесь будет список постов</p>
-        </div>
-    </main>
-    <aside th:fragment="rightSidebar" class="feed-sidebar">
-        <div class="placeholder">
-            <p>Здесь будут списки</p>
-        </div>
-    </aside>
-
-
     <style>
         .feed-layout {
             display: grid;

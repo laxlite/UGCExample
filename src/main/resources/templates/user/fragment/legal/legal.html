@@ -1,0 +1,30 @@
+<!--
+        Параметры шаблона:
+            sections - список разделов правил сайта (с полями slug, title)
+
+        Объект раздела (section) содержит:
+            - slug - идентификатор страницы
+            - title - заголовок раздела в списке разделов
+ -->
+<div th:fragment="legalLayout" class="legal-layout">
+    <main id="legal-content" th:insert="~{::content(${section})}"></main>
+
+    <aside class="legal-sidebar">
+        <ul>
+            <li th:each="s : ${sections}">
+                <a th:href="@{/legal/{slug}(slug=${s.slug})}"
+                   th:attr="hx-get=@{/legal/section/{slug}(slug=${s.slug})},
+                            hx-push-url=@{/legal/{slug}(slug=${s.slug})}"
+                   hx-target="#legal-content"
+                   hx-swap="innerHTML"
+                   th:text="${s.title}">Раздел</a>
+            </li>
+        </ul>
+    </aside>
+</div>
+
+
+<th:block th:fragment="content(section)">
+    <h2 th:text="${section.title}">Заголовок</h2>
+    <div th:utext="${section.html}"></div>
+</th:block>

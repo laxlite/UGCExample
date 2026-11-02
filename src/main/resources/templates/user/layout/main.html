@@ -109,9 +109,10 @@
     <div class="footer-column">
         <h3>Информация</h3>
         <ul>
-            <li><a th:href="@{/for_authors}">Для авторов</a></li>
-            <li><a th:href="@{/rules}">Правила сайта</a></li>
-            <li><a th:href="@{/privacy}">Конфиденциальность</a></li>
+            <li th:each="p : ${infoPages}">
+                <a th:href="@{/legal/{slug}(slug=${p.slug})}"
+                   th:text="${p.title}">Раздел</a>
+            </li>
         </ul>
     </div>
 

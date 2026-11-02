@@ -62,3 +62,11 @@ create table if not exists user_event (
 	event_id bigint not null references event(id) on delete cascade,
 	primary key(user_id, event_id)
 );
+
+create table if not exists legal_document (
+    id bigint generated always as identity primary key,
+    header varchar(100) not null,
+    slug varchar(20) not null unique,
+    html varchar not null,
+    created_at TIMESTAMPTZ not null default now()
+);

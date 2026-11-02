@@ -1,4 +1,4 @@
-package io.github.laxlite.UGCExample.controller;
+package io.github.laxlite.UGCExample.controller.web;
 
 import jakarta.validation.constraints.Min;
 import org.springframework.stereotype.Controller;

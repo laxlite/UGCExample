@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class LegalController {
     @GetMapping("/rules")
     public String rules(){
-
+        return "templates/user/layout/main.html";
     }
 }

@@ -5,8 +5,6 @@
     <title>Главная страница</title>
 
     <style>
-        /* Только layout-стили, без цветового оформления */
-
         html, body {
             margin: 0;
             padding: 0;
@@ -47,14 +45,10 @@
             flex: 0 0 auto;
             margin-left: auto;
         }
-
-        /* ---------- MAIN ---------- */
         .app-main {
             padding: 16px;
-            margin-top: 60px;   /* отступ под фиксированный header */
+            margin-top: 60px;
         }
-
-        /* ---------- FOOTER ---------- */
         .app-footer {
             display: flex;
             padding: 16px;
@@ -83,7 +77,6 @@
 </head>
 <body>
 
-<!-- ==================== HEADER ==================== -->
 <header class="app-header">
     <div class="logo">
         <a th:href="@{/}">Логотип</a>
@@ -99,18 +92,10 @@
     </div>
 </header>
 
-<!-- ==================== MAIN ==================== -->
 <main class="app-main">
-    <!--
-        Единый слот под всё содержимое между header и footer.
-        Сюда будет вставляться нужный компонент (лента, страница статьи и т.п.).
-        Имя фрагмента 'mainContent' — замените на своё, когда определитесь,
-        что именно будет жить в этом слоте по умолчанию.
-    -->
-    <div th:replace="~{user/layout/panel/main_content :: mainContent}"></div>
+    <div th:replace="~{${templateName} :: ${fragmentName}}"></div>
 </main>
 
-<!-- ==================== FOOTER ==================== -->
 <footer class="app-footer">
 
     <div class="footer-column">

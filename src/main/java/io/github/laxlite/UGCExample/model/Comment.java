@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,4 +33,7 @@ public class Comment {
 
     @ManyToMany(mappedBy = "comments")
     private Set<Post> posts = new HashSet<>();
+
+    @Column(nullable = false, updatable = false, insertable = false)
+    private Instant createdAt = Instant.now();
 }

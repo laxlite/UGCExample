@@ -1,0 +1,21 @@
+<section id="popular-comments"
+         th:fragment="popularCommentsSection"
+         class="sidebar-block"
+         th:hx-get="@{/feed/fragment/popular-comments(
+                              groupsCount=${groupsCount},
+                              commentsPerGroup=${commentsPerGroup},
+                              groupNumber=${nextGroupNumber},
+                              hours=${hours})}"
+         hx-trigger="every 15s [document.visibilityState === 'visible']"
+         hx-swap="outerHTML">
+
+    <h3>Популярные комментарии</h3>
+    <ul class="popular-comments">
+        <li th:each="c : ${popularComments}">
+            <div class="popular-comment">
+                <p class="popular-comment__text" th:text="${c.content}">Комментарий</p>
+                <span class="popular-comment__rating" th:text="${c.rating}">0</span>
+            </div>
+        </li>
+    </ul>
+</section>

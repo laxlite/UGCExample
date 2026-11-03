@@ -1,11 +1,13 @@
 create type auth_status as enum ('PENDING', 'APPROVED');
 create type post_status as enum ('DRAFT', 'PENDING', 'REJECTED', 'APPROVED');
 
+-- TODO: добавить в модель длину строк
 create table if not exists tag (
 	id bigint generated always as identity primary key,
 	name varchar(30) not null unique
 );
 
+-- TODO: добавить в модель длину строк
 create table if not EXISTS "user" (
 	id BIGINT GENERATED always as identity PRIMARY key,
 	nickname varchar(50) not null UNIQUE,
@@ -17,6 +19,7 @@ create table if not EXISTS "user" (
     status auth_status not null
 );
 
+-- TODO: добавить в модель длину строк
 create table if not exists "admin" (
 	id BIGINT GENERATED always as identity PRIMARY key,
 	name varchar(100) not null,
@@ -24,6 +27,7 @@ create table if not exists "admin" (
     hash varchar not null
 );
 
+-- TODO: добавить в модель длину строк
 create table if not exists post (
 	id BIGINT GENERATED always as identity PRIMARY key,
     user_id bigint references "user"(id) on delete set null,
@@ -42,8 +46,10 @@ create table if not exists post_tag (
 create table if not exists comment (
 	id BIGINT GENERATED always as identity PRIMARY key,
 	user_id bigint references "user"(id) on delete set null,
+    parent_id bigint references comment(id) on delete cascade,
 	content varchar not null,
-	rating integer not null default 0
+	rating integer not null default 0,
+    created_at TIMESTAMPTZ not null default now()
 );
 
 create table if not exists post_comment (
@@ -62,11 +68,24 @@ create table if not exists user_event (
 	event_id bigint not null references event(id) on delete cascade,
 	primary key(user_id, event_id)
 );
-
+ -- TODO: добавить в модель длину строк
 create table if not exists legal_document (
     id bigint generated always as identity primary key,
     header varchar(100) not null,
-    slug varchar(20) not null unique,
+    slug varchar(30) not null unique,
     html varchar not null,
     created_at TIMESTAMPTZ not null default now()
+);
+
+-- TODO: добавить картинку, created_at
+create table if not exists topic (
+    id bigint generated always as identity primary key,
+    slug varchar(30) not null unique,
+    name varchar(100) not null unique
+);
+
+create table if not exists post_topic (
+    post_id bigint not null references post(id) on delete cascade,
+    topic_id bigint not null references topic(id) on delete cascade,
+    primary key (post_id, topic_id)
 );

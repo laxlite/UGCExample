@@ -62,4 +62,7 @@ public class Post {
             inverseJoinColumns = @JoinColumn(name = "comment_id") // FK на comment
     )
     private Set<Comment> comments = new HashSet<>(); // Set, чтобы не было дублей
+
+    @ManyToMany(mappedBy = "posts")
+    private Set<Topic> topics = new HashSet<>();
 }

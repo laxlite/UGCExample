@@ -1,40 +1,84 @@
 <!DOCTYPE html>
-<html lang="ru"  xmlns:th="http://www.thymeleaf.org">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <body>
 
-    <div th:fragment="feed" class="feed-layout">
-        <aside class="feed-sidebar" th:replace="~{this::leftSidebar}"></aside>
-        <main class="feed-content" th:replace="~{this::postsList}"></main>
-        <aside class="feed-sidebar" th:replace="~{this::rightSidebar}"></aside>
-    </div>
+<div th:fragment="feed" class="feed-layout">
 
-    <style>
-        .feed-layout {
-            display: grid;
-            grid-template-columns: 240px minmax(0, 1fr) 240px;
-            gap: 24px;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 16px;
-            box-sizing: border-box;
-        }
+    <aside class="feed-sidebar">
 
-        .feed-sidebar {
-        }
+        <!-- Данная секция полностью обновляется по hx-get
+               Каждый новый фрагмент должен иметь измененный url
+               для получения следующего набора комментариев-->
+        <th:block th:replace="~{user/fragment/feed/popular_comments::popularCommentsSection}"></th:block>
 
-        .feed-content {
-            min-width: 0;
-        }
+        <section class="sidebar-block"
+                 id="popular-authors"
+                 hx-get="/feed/fragment/popular-authors"
+                 hx-trigger="every 10s [document.visibilityState === 'visible']"
+                 hx-swap="innerHTML">
+            <th:block th:insert="~{this::popularAuthorsBody}"/>
+        </section>
+    </aside>
 
-        .placeholder {
-            border: 2px dashed #ccc;
-            border-radius: 8px;
-            padding: 24px;
-            text-align: center;
-            color: #888;
-            background: #fafafa;
-        }
-    </style>
+    <main id="feed-content" class="feed-content" th:insert="~{this::postsList}"></main>
+
+    <aside class="feed-sidebar">
+        <form id="feed-filters">
+            <select name="sort"
+                    hx-get="/feed/posts"
+                    hx-target="#feed-content"
+                    hx-swap="innerHTML"
+                    hx-trigger="change">
+                <option value="popular"   th:selected="${sort == 'popular'}">Популярное</option>
+                <option value="new"       th:selected="${sort == 'new'}">Новое</option>
+                <option value="discussed" th:selected="${sort == 'discussed'}">Обсуждаемое</option>
+                <option value="my-feed"   th:selected="${sort == 'my-feed'}">Моя лента</option>
+            </select>
+
+            <select name="topic"
+                    hx-get="/feed/posts"
+                    hx-target="#feed-content"
+                    hx-swap="innerHTML"
+                    hx-trigger="change">
+                <option value="" th:selected="${topic == null}">Все темы</option>
+                <option th:each="t : ${topics}"
+                        th:value="${t.id}"
+                        th:text="${t.name}"
+                        th:selected="${t.id == topic}">
+                </option>
+            </select>
+        </form>
+    </aside>
+
+</div>
+
+<style>
+    .feed-layout {
+        display: grid;
+        grid-template-columns: 240px minmax(0, 1fr) 240px;
+        gap: 24px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 16px;
+        box-sizing: border-box;
+    }
+
+    .feed-sidebar {
+    }
+
+    .feed-content {
+        min-width: 0;
+    }
+
+    .placeholder {
+        border: 2px dashed #ccc;
+        border-radius: 8px;
+        padding: 24px;
+        text-align: center;
+        color: #888;
+        background: #fafafa;
+    }
+</style>
 
 </body>
 </html>

@@ -2,10 +2,10 @@
          th:fragment="popularCommentsSection"
          class="sidebar-block"
          th:hx-get="@{/feed/fragment/popular-comments(
-                              groupsCount=${groupsCount},
-                              commentsPerGroup=${commentsPerGroup},
-                              groupNumber=${nextGroupNumber},
-                              hours=${hours})}"
+                              groups_count=${commentsFeedContext.groupsCount},
+                              comments_per_group=${commentsFeedContext.commentsPerGroup},
+                              group_number=${commentsFeedContext.groupNumber},
+                              hours=${commentsFeedContext.hours})}"
          hx-trigger="every 15s [document.visibilityState === 'visible']"
          hx-swap="outerHTML">
 

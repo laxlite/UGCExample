@@ -10,6 +10,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
 
+// TODO: change popularComment logic (if commentsPerGroups * groupsCount <= count on SQL result, then change return). For authors too
 @Service
 public class CommentService {
     private final CommentRepository commentRepository;
@@ -18,7 +19,7 @@ public class CommentService {
     // groupsCount - общее количество показываемых групп
     // hours - за какое время находятся комментарии
     public List<CommentDTO> getPopularCommentsByRating(int groupsCount, int commentsPerGroup, int groupNumber, int hours){
-        if (groupsCount <= 0 || commentsPerGroup <= 0 || groupNumber <= 0 || hours <= 0) {
+        if (groupsCount <= 0 || commentsPerGroup <= 0 || groupNumber < 0 || hours <= 0) {
             throw new IllegalArgumentException(
                     "groupsCount, commentsPerGroup, hours must be > 0; groupNumber must be >= 0");
         }

@@ -1,0 +1,21 @@
+<section id="popular-authors"
+         th:fragment="popularAuthorsSection"
+         class="sidebar-block"
+         th:hx-get="@{/feed/fragment/popular-authors(
+                              groups_count=${authorsFeedContext.groupsCount},
+                              authors_per_group=${authorsFeedContext.authorsPerGroup},
+                              group_number=${authorsFeedContext.groupNumber},
+                              hours=${authorsFeedContext.hours})}"
+         hx-trigger="every 15s [document.visibilityState === 'visible']"
+         hx-swap="outerHTML">
+
+    <h3>Популярные авторы</h3>
+    <ul class="popular-authors">
+        <li th:each="c : ${popularAuthors}">
+            <div class="popular-author">
+                <p class="popular-author__text" th:text="${c.nickname}">Имя автора</p>
+                <span class="popular-author__rating" th:text="${c.rating}">0</span>
+            </div>
+        </li>
+    </ul>
+</section>

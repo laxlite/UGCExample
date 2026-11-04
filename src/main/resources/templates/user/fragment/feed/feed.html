@@ -11,43 +11,36 @@
                для получения следующего набора комментариев-->
         <th:block th:replace="~{user/fragment/feed/popular_comments::popularCommentsSection}"></th:block>
 
-        <section class="sidebar-block"
-                 id="popular-authors"
-                 hx-get="/feed/fragment/popular-authors"
-                 hx-trigger="every 10s [document.visibilityState === 'visible']"
-                 hx-swap="innerHTML">
-            <th:block th:insert="~{this::popularAuthorsBody}"/>
-        </section>
+        <!-- Аналогично для авторов       -->
+        <th:block th:replace="~{user/fragment/feed/popular_authors::popularAuthorsSection}"></th:block>
     </aside>
 
-    <main id="feed-content" class="feed-content" th:insert="~{this::postsList}"></main>
+    <main id="feed-content" class="feed-content" th:insert="~{user/fragment/feed/posts_stream::postStream}"></main>
 
     <aside class="feed-sidebar">
-        <form id="feed-filters">
-            <select name="sort"
-                    hx-get="/feed/posts"
-                    hx-target="#feed-content"
-                    hx-swap="innerHTML"
-                    hx-trigger="change">
-                <option value="popular"   th:selected="${sort == 'popular'}">Популярное</option>
-                <option value="new"       th:selected="${sort == 'new'}">Новое</option>
-                <option value="discussed" th:selected="${sort == 'discussed'}">Обсуждаемое</option>
-                <option value="my-feed"   th:selected="${sort == 'my-feed'}">Моя лента</option>
-            </select>
+        <select name="sort"
+                hx-get="/feed/posts"
+                hx-target="#feed-content"
+                hx-swap="innerHTML"
+                hx-trigger="change">
+            <option value="popular"   th:selected="${sort == 'popular'}">Популярное</option>
+            <option value="new"       th:selected="${sort == 'new'}">Новое</option>
+            <option value="discussed" th:selected="${sort == 'discussed'}">Обсуждаемое</option>
+            <option value="my-feed"   th:selected="${sort == 'my-feed'}">Моя лента</option>
+        </select>
 
-            <select name="topic"
-                    hx-get="/feed/posts"
-                    hx-target="#feed-content"
-                    hx-swap="innerHTML"
-                    hx-trigger="change">
-                <option value="" th:selected="${topic == null}">Все темы</option>
-                <option th:each="t : ${topics}"
-                        th:value="${t.id}"
-                        th:text="${t.name}"
-                        th:selected="${t.id == topic}">
-                </option>
-            </select>
-        </form>
+        <select name="topic"
+                hx-get="/feed/posts"
+                hx-target="#feed-content"
+                hx-swap="innerHTML"
+                hx-trigger="change">
+            <option value="" th:selected="${topic == null}">Все темы</option>
+            <option th:each="t : ${topics}"
+                    th:value="${t.id}"
+                    th:text="${t.name}"
+                    th:selected="${t.id == topic}">
+            </option>
+        </select>
     </aside>
 
 </div>

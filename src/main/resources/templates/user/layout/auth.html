@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Авторизация</title>
+
+    <script th:src="@{/webjars/htmx.org/dist/htmx.min.js}"></script>
+    <script defer th:src="@{/webjars/alpinejs/dist/cdn.min.js}"></script>
+<!--  TODO: add tailwindcss  -->
+<!--    <script src=""></script>-->
+</head>
+<body>
+
+    <div id="auth-root"
+         x-data="{ email: '', password: '', passwordConfirm: '', name: '' }"
+         th:insert="~{${templateName} :: ${fragmentName}}">
+
+    </div>
+
+</body>
+</html>

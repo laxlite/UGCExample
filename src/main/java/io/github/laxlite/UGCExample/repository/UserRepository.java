@@ -9,4 +9,6 @@ import java.time.Instant;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     Page<User> findByCreatedAtAfterOrderByRating(Instant threshold, Pageable pageable);
+
+    boolean existsByEmail(String email);
 }

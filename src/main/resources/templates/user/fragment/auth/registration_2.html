@@ -1,0 +1,39 @@
+<div th:fragment="registration2">
+
+    <h2>Регистрация — шаг 2</h2>
+    <p>Придумайте пароль</p>
+
+    <!--  passwordErrorType == null при первом переходе или при нажатии Назад в registration3  -->
+    <!--/*@thymesVar id="passwordErrorType" type="io.github.laxlite.UGCExample.enums.PasswordErrorType"*/-->
+    <th:block th:switch="${passwordErrorType?.name()}">
+        <p th:case="'CONFIRMATION_MISMATCH'">Пароли не совпадают!</p>
+        <p th:case="'WEAK_PASSWORD'">Слабый пароль!</p>
+    </th:block>
+
+    <label>
+        <span>Пароль</span>
+        <input type="password"
+               x-model="password"/>
+    </label>
+    <label>
+        <span>Подтверждение пароля</span>
+        <input type="password"
+               x-model="passwordConfirm" />
+    </label>
+
+    <div>
+        <button type="button"
+                hx-get="/auth/fragment/registration_1"
+                hx-target="#auth-root"
+                hx-swap="innerHTML">
+            Назад
+        </button>
+        <button type="button"
+                hx-post="/auth/fragment/registration_3"
+                hx-target="#auth-root"
+                x-bind:hx-vals="JSON.stringify({password: password, passwordConfirm: passwordConfirm})"
+                hx-swap="innerHTML">
+            Далее
+        </button>
+    </div>
+</div>

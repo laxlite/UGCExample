@@ -1,0 +1,19 @@
+<div th:fragment="loginRegistration">
+
+    <h1>Авторизация</h1>
+    <p>Выберите действие</p>
+
+    <button type="button"
+            hx-get="/auth/fragment/login"
+            hx-target="#auth-root"
+            hx-swap="innerHTML">
+        Войти
+    </button>
+
+    <button type="button"
+            hx-get="/auth/fragment/registration_1"
+            hx-target="#auth-root"
+            hx-swap="innerHTML">
+        Зарегистрироваться
+    </button>
+</div>

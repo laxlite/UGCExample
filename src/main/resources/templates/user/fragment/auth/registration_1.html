@@ -1,0 +1,33 @@
+<div th:fragment="registration1">
+
+    <h2>Регистрация — шаг 1</h2>
+    <p>Введите вашу почту</p>
+
+    <label>
+        <span>Email</span>
+        <input type="email"
+               x-model="email"
+               placeholder="you@example.com" />
+    </label>
+
+    <!--/*@thymesVar id="emailError" type="boolean"*/-->
+    <div th:if="${emailError == true}">
+        Пользователь с такой почтой уже существует
+    </div>
+
+    <div>
+        <button type="button"
+                hx-get="/auth/fragment/login_registration"
+                hx-target="#auth-root"
+                hx-swap="innerHTML">
+            Назад
+        </button>
+        <button type="button"
+                hx-post="/auth/fragment/registration_2"
+                hx-target="#auth-root"
+                x-bind:hx-vals="JSON.stringify({email: email})"
+                hx-swap="innerHTML">
+            Далее
+        </button>
+    </div>
+</div>

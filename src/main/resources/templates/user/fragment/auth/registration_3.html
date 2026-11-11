@@ -1,0 +1,28 @@
+<div th:fragment="registration3">
+
+    <h2>Регистрация — шаг 3</h2>
+    <p>Как к вам обращаться?</p>
+
+    <label>
+        <span>Имя</span>
+        <input type="text"
+               x-model="name"/>
+    </label>
+
+    <div>
+        <button type="button"
+                hx-get="/auth/fragment/registration_2"
+                hx-target="#auth-root"
+                hx-swap="innerHTML">
+            Назад
+        </button>
+<!--    Отправляем данные на /auth/register
+        Регистрируем пользователя, и если ОК -> кидаем его на главную страницу -->
+        <button type="button"
+                hx-post="/auth/register"
+                hx-swap="none"
+                x-bind:hx-vals="JSON.stringify({email: email, password: password, name: name})">
+            Зарегистрироваться
+        </button>
+    </div>
+</div>

@@ -35,6 +35,21 @@ public class UserService {
                 .toList();
     }
 
+    // Проверка почты на существование в БД
+    public boolean isEmailExists(String email){
+        // TODO: add delay on email checking
+        return userRepository.existsByEmail(email);
+    }
+
+    public void registerUser(String email, String password, String name){
+        //TODO
+    }
+
+
+    public void loginUser(String email, String password) {
+        //TODO
+    }
+
     @Autowired
     public UserService(UserRepository userRepository){
         this.userRepository = userRepository;

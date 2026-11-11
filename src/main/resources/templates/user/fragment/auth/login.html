@@ -1,0 +1,32 @@
+<div th:fragment="login">
+
+    <h2>Вход</h2>
+    <p>Введите email и пароль</p>
+
+    <label>
+        <span>Email</span>
+        <input type="email"
+               x-model="email"/>
+    </label>
+
+    <label>
+        <span>Пароль</span>
+        <input type="password"
+               x-model="password" />
+    </label>
+
+    <div>
+        <button type="button"
+                hx-get="/auth/fragment/login_registration"
+                hx-target="#auth-root"
+                hx-swap="innerHTML">
+            Назад
+        </button>
+        <button type="button"
+                hx-post="/auth/login"
+                hx-swap="none"
+                x-bind:hx-vals="JSON.stringify({email: email, password: password})">
+            Войти
+        </button>
+    </div>
+</div>
